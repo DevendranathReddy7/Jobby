@@ -1,0 +1,96 @@
+.job__title__div {
+  display: flex;
+}
+
+.job__image__div {
+  margin-right: 2%;
+  display: flex;
+  align-content: center;
+}
+.job__image {
+  width: 50x;
+  height: 50px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.job__role {
+  margin-top: 2px;
+}
+.rating {
+  margin-top: -10px;
+}
+.job__role,
+.rating {
+  align-self: flex-start;
+}
+
+.location__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.innerLoc__div {
+  display: flex;
+}
+
+.loc,
+.eType,
+.ctc {
+  align-self: center;
+  margin-right: 10px;
+}
+
+.visit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.visit_link {
+  align-self: center;
+  color: wheat;
+  padding-right: 10px;
+}
+/* Skills */
+
+.skills__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.skill__li {
+  list-style-type: none;
+  display: flex;
+  margin-bottom: 5%;
+}
+
+.skill__image {
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.life_at_cmpny {
+  display: flex;
+  @media (max-width: 668px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.cmpny_img {
+  @media (max-width: 668px) {
+    width: 300px;
+    height: 200px;
+  }
+}
+.desc {
+  width: 70%;
+  line-height: 30px;
+  margin-right: 2%;
+}

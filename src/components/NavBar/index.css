@@ -1,0 +1,36 @@
+.navBar__div {
+  background-color: #272727;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 1% 3%;
+  color: white;
+}
+
+.logo__div {
+  align-self: center;
+}
+
+.image__navBar {
+  height: 30px;
+  width: 70px;
+}
+
+.center__div {
+  display: flex;
+  flex-direction: row;
+}
+
+.home__para {
+  margin-right: 50%;
+  align-self: center;
+}
+
+.logout {
+  background-color: #4f46e5;
+  align-self: center;
+  padding: 5px 20px;
+  border-style: none;
+  border-radius: 3px;
+  color: white;
+}

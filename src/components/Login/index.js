@@ -1,19 +1,21 @@
 import './index.css'
 import {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import LoaderComp from '../Loader/index'
 
 const Login = () => {
-  const [details, setDetails] = useState({name: '', pswd: ''})
+  const history = useHistory()
+  const [details, setDetails] = useState({username: '', password: ''})
   const [msg, setMsg] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const detailsHandler = (value, field) => {
     switch (field) {
       case 'name':
-        setDetails(prev => ({...prev, name: value}))
+        setDetails(prev => ({...prev, username: value}))
         break
       case 'pswd':
-        setDetails(prev => ({...prev, pswd: value}))
+        setDetails(prev => ({...prev, password: value}))
         break
       default:
         break
@@ -33,6 +35,8 @@ const Login = () => {
     setIsLoading(true)
     const response = await fetch('https://apis.ccbp.in/login', options)
     const data = await response.json()
+    console.log(data)
+    history.replace('/')
     setIsLoading(false)
   }
 
@@ -49,7 +53,7 @@ const Login = () => {
       <form>
         <div className="username">
           <label htmlFor="userName" className="label">
-            User Name
+            USERNAME
           </label>
           <input
             type="text"
@@ -57,15 +61,16 @@ const Login = () => {
             className="input"
             placeholder="User Name"
             onChange={e => detailsHandler(e.target.value, 'name')}
+            value={details.username}
           />
         </div>
         <div className="password">
-          <label htmlFor="userName" className="label">
-            Password
+          <label htmlFor="password" className="label">
+            PASSWORD
           </label>
           <input
-            type="text"
-            id="userName"
+            type="password"
+            id="password"
             className="input"
             placeholder="Password"
             onChange={e => detailsHandler(e.target.value, 'pswd')}

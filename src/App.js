@@ -6,7 +6,7 @@ import Login from './components/Login/index'
 import Home from './components/Home/index'
 import Jobs from './components/Jobs/index'
 import JobDetails from './components/JobDetails/index'
-import NOTFOUND from './components/NotFound/index'
+import NotFound from './components/NotFound/index'
 
 const App = () => {
   console.log('123')
@@ -20,7 +20,10 @@ const App = () => {
         <Route path="/home" component={Home} />
         <Route exact path="/jobs" component={Jobs} />
         <Route exact path="/jobs/:id" component={JobDetails} />
-        <Route component={NOTFOUND} />
+        {/* <Route>
+          <Redirect to="/not-found" />
+        </Route> */}
+        <Route component={NotFound} />
       </Switch>
     </div>
   )

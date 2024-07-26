@@ -1,45 +1,50 @@
-import './index.css'
-import {useHistory} from 'react-router-dom'
+import "./index.css";
+import { useHistory, Link } from "react-router-dom";
 
 const NavBar = () => {
-  const history = useHistory()
+  const history = useHistory();
   const goHome = () => {
-    history.push('/home')
-  }
+    history.push("/home");
+  };
 
   const goToJobs = () => {
-    history.push('/jobs')
-  }
+    history.push("/jobs");
+  };
 
   const logoutHandler = () => {
-    history.push('/login')
-  }
+    history.push("/login");
+  };
 
   return (
-    <div className="navBar__div">
-      <div className="logo__div">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-          alt="website logo"
-          className="image__navBar"
-          onClick={goHome}
-        />
-      </div>
+    <ul className="navBar__div">
+      <li className="logo__div">
+        <Link to="/home">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+            alt="website logo"
+            className="image__navBar"
+          />
+        </Link>
+      </li>
 
-      <div className="center__div">
-        <p className="home__para" onClick={goHome}>
-          Home
-        </p>
-        <p className="home__para" onClick={goToJobs}>
-          Jobs
-        </p>
-      </div>
+      <li className="center__div">
+        <Link to="/home" className="anchor__elm">
+          <p className="home__para">Home</p>
+        </Link>
+        <Link to="/jobs" className="anchor__elm">
+          <p className="home__para">Jobs</p>
+        </Link>
+      </li>
 
-      <button className="logout" onClick={logoutHandler}>
-        Log-Out
-      </button>
-    </div>
-  )
-}
+      <li>
+        <Link to="/login">
+          <button className="logout" onClick={logoutHandler}>
+            Log-Out
+          </button>
+        </Link>
+      </li>
+    </ul>
+  );
+};
 
-export default NavBar
+export default NavBar;

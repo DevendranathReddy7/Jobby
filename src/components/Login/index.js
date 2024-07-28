@@ -7,7 +7,10 @@ const Cookies = require('js-cookie')
 
 const Login = () => {
   const history = useHistory()
-  const [details, setDetails] = useState({username: '', password: ''})
+  const [details, setDetails] = useState({
+    username: '',
+    password: '',
+  })
   const [msg, setMsg] = useState({error: false, msg: ''})
   const [isLoading, setIsLoading] = useState(false)
 

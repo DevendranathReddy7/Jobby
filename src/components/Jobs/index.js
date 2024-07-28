@@ -75,12 +75,12 @@ const Jobs = () => {
           },
         },
       )
-      if (!response.ok) {
-        setRespStatus(true)
-      } else {
+      if (response.ok) {
         setRespStatus(false)
         const data = await response.json()
         setJobs(data.jobs)
+      } else {
+        setRespStatus(true)
       }
     }
     getJobs()

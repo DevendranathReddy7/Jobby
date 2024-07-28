@@ -22,13 +22,13 @@ const JobDetails = ({location}) => {
           Authorization: `Bearer ${Cookies.get('jwt_token')}`,
         },
       })
-      if (!response.ok) {
-        setError(true)
-        setIsLoading(false)
-      } else {
+      if (response.ok) {
         const data = await response.json()
         setJob(data)
         setError(false)
+        setIsLoading(false)
+      } else {
+        setError(true)
         setIsLoading(false)
       }
     }

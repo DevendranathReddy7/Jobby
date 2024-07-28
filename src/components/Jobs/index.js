@@ -60,8 +60,6 @@ const Jobs = () => {
   const [jobs, setJobs] = useState([])
 
   useEffect(() => {
-    setIsLoading(true)
-
     const getJobs = async () => {
       const response = await fetch(
         `https://apis.ccbp.in/jobs?employment_type=${queryParams.empType.join(
@@ -81,10 +79,10 @@ const Jobs = () => {
         setJobs(data.jobs)
       } else {
         setRespStatus(true)
+        setRespStatus(false)
       }
     }
     getJobs()
-    setIsLoading(false)
   }, [queryParams, isRetryClicked])
 
   useEffect(() => {
@@ -132,15 +130,19 @@ const Jobs = () => {
       </ul>
       <div className="jobs__div">
         <div className="sideBar__div">
-          <div className="profile__div">
-            <img
-              src={profileDetails?.profile_image_url}
-              alt="profile"
-              className="profile__icon"
-            />
-            <h1 className="name">{profileDetails?.name}</h1>
-            <p className="role">{profileDetails?.short_bio}</p>
-          </div>
+          {profileDetails ? (
+            <div className="profile__div">
+              <img
+                src={profileDetails.profile_image_url}
+                alt="profile"
+                className="profile__icon"
+              />
+              <h1 className="name">{profileDetails.name}</h1>
+              <p className="role">{profileDetails.short_bio}</p>
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
 
           <ul className="job__type__div">
             <h1>Type of Employment</h1>
@@ -149,12 +151,15 @@ const Jobs = () => {
                 <input
                   type="checkbox"
                   className="checkBox"
-                  id="jobType"
+                  id={job.employmentTypeId}
                   onChange={() =>
                     jobSearchHandler(job.employmentTypeId, 'empType')
                   }
                 />
-                <label htmlFor="jobType" className="checkBox__label">
+                <label
+                  htmlFor={job.employmentTypeId}
+                  className="checkBox__label"
+                >
                   {job.label}
                 </label>
               </li>
@@ -168,13 +173,13 @@ const Jobs = () => {
                 <input
                   type="radio"
                   className="checkBox"
-                  id="salary"
+                  id={salary.salaryRangeId}
                   name="salary"
                   onChange={() =>
                     jobSearchHandler(salary.salaryRangeId, 'salary')
                   }
                 />
-                <label htmlFor="salary" className="radio__label">
+                <label htmlFor={salary.salaryRangeId} className="radio__label">
                   {salary.label}
                 </label>
               </li>

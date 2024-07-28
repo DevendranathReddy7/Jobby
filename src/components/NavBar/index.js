@@ -6,7 +6,7 @@ const Cookies = require('js-cookie')
 const NavBar = () => {
   const history = useHistory()
   const goHome = () => {
-    history.push('/home')
+    history.replace('/home')
   }
 
   const goToJobs = () => {

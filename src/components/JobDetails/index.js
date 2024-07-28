@@ -56,7 +56,7 @@ const JobDetails = ({location}) => {
           <h1 className="similarJob__h1">Similar Jobs</h1>
           <ul className="silimar__jobs">
             {job.similar_jobs.map(similarJob => (
-              <li className="similar__Job__li">
+              <li className="similar__Job__li" key={Math.random().toString(36)}>
                 <PrintJob
                   job={similarJob}
                   similarJobs={similarJob}

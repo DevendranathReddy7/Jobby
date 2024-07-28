@@ -67,7 +67,7 @@ const PrintJob = ({
           <h1>Skills</h1>
           <ul className="skills__container">
             {skills.map(skill => (
-              <li className="skill__li">
+              <li className="skill__li" key={skill.name}>
                 <img
                   src={skill.image_url}
                   alt={skill.name}

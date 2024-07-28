@@ -39,7 +39,7 @@ const Login = () => {
     if (data.jwt_token) {
       Cookies.set('jwt_token', data.jwt_token, {expires: 1, path: '/'})
       setMsg(prev => ({...prev, error: false, msg: ''}))
-      history.push('/')
+      history.push('/home')
     } else {
       setMsg(prev => ({...prev, error: true, msg: data.error_msg}))
     }

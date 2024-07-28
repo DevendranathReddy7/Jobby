@@ -1,6 +1,13 @@
 import './index.css'
 
-const PrintJob = ({job, jobDetails, skills, lifeAtCmpny, similarJobs}) => {
+const PrintJob = ({
+  job,
+  jobDetails,
+  skills,
+  lifeAtCmpny,
+  similarJobs,
+  altValue,
+}) => {
   const getLocation = jobLocation => {
     const {location, employment_type: employmentType} = jobLocation
     return (
@@ -15,10 +22,14 @@ const PrintJob = ({job, jobDetails, skills, lifeAtCmpny, similarJobs}) => {
     <div className="jobs__container">
       <div className="job__title__div">
         <div className="job__image__div">
-          <img src={job.company_logo_url} alt="" className="job__image" />
+          <img
+            src={job.company_logo_url}
+            alt={altValue}
+            className="job__image"
+          />
         </div>
         <div className="details">
-          <p className="job__role">{job.title}</p>
+          <h1 className="job__role">{job.title}</h1>
           <p className="rating">⭐ {job.rating}</p>
         </div>
       </div>
@@ -26,7 +37,9 @@ const PrintJob = ({job, jobDetails, skills, lifeAtCmpny, similarJobs}) => {
       {!similarJobs && (
         <div className="location__container">
           {getLocation(job)}
-          <div className="ctc">{job.package_per_annum}</div>
+          <div className="ctc">
+            <p>{job.package_per_annum}</p>
+          </div>
         </div>
       )}
 
@@ -52,14 +65,18 @@ const PrintJob = ({job, jobDetails, skills, lifeAtCmpny, similarJobs}) => {
       {jobDetails && (
         <div>
           <h1>Skills</h1>
-          <div className="skills__container">
+          <ul className="skills__container">
             {skills.map(skill => (
               <li className="skill__li">
-                <img src={skill.image_url} alt="" className="skill__image" />
+                <img
+                  src={skill.image_url}
+                  alt={skill.name}
+                  className="skill__image"
+                />
                 <p>{skill.name}</p>
               </li>
             ))}
-          </div>
+          </ul>
         </div>
       )}
 
@@ -69,7 +86,11 @@ const PrintJob = ({job, jobDetails, skills, lifeAtCmpny, similarJobs}) => {
 
           <div className="life_at_cmpny">
             <p className="desc">{lifeAtCmpny.description}</p>
-            <img src={lifeAtCmpny.image_url} alt="" className="cmpny_img" />
+            <img
+              src={lifeAtCmpny.image_url}
+              alt="life at company"
+              className="cmpny_img"
+            />
           </div>
         </div>
       )}

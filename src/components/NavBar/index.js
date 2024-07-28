@@ -14,8 +14,9 @@ const NavBar = () => {
   }
 
   const logoutHandler = () => {
-    Cookies.remove('jwt_token')
     history.replace('/login')
+
+    Cookies.remove('jwt_token')
   }
 
   return (

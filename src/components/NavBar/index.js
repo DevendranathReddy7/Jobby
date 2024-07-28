@@ -1,19 +1,22 @@
-import "./index.css";
-import { useHistory, Link } from "react-router-dom";
+import './index.css'
+import {useHistory, Link} from 'react-router-dom'
+
+const Cookies = require('js-cookie')
 
 const NavBar = () => {
-  const history = useHistory();
+  const history = useHistory()
   const goHome = () => {
-    history.push("/home");
-  };
+    history.push('/home')
+  }
 
   const goToJobs = () => {
-    history.push("/jobs");
-  };
+    history.push('/jobs')
+  }
 
   const logoutHandler = () => {
-    history.push("/login");
-  };
+    Cookies.remove('jwt_token')
+    history.replace('/login')
+  }
 
   return (
     <ul className="navBar__div">
@@ -28,10 +31,10 @@ const NavBar = () => {
       </li>
 
       <li className="center__div">
-        <Link to="/home" className="anchor__elm">
+        <Link to="/home">
           <p className="home__para">Home</p>
         </Link>
-        <Link to="/jobs" className="anchor__elm">
+        <Link to="/jobs">
           <p className="home__para">Jobs</p>
         </Link>
       </li>
@@ -39,12 +42,12 @@ const NavBar = () => {
       <li>
         <Link to="/login">
           <button className="logout" onClick={logoutHandler}>
-            Log-Out
+            Logout
           </button>
         </Link>
       </li>
     </ul>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

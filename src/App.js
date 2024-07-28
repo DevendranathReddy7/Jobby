@@ -8,16 +8,22 @@ import Jobs from './components/Jobs/index'
 import JobDetails from './components/JobDetails/index'
 import NotFound from './components/NotFound/index'
 
+const Cookies = require('js-cookie')
+
 const App = () => {
-  console.log('123')
+  const token = Cookies.get('jwt_token')
   return (
     <div className="main__div">
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
         <Route exact path="/login" component={Login} />
         <Route path="/home" component={Home} />
+
+        <Route exact path="/">
+          {token ? <Redirect to="/home" /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/login">
+          {token ? <Redirect to="/home" /> : <Redirect to="/login" />}
+        </Route>
         <Route exact path="/jobs" component={Jobs} />
         <Route exact path="/jobs/:id" component={JobDetails} />
         {/* <Route>

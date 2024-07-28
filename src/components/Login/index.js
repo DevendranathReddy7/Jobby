@@ -1,44 +1,47 @@
-import "./index.css";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import LoaderComp from "../Loader/index";
+import './index.css'
+import {useState} from 'react'
+import {useHistory} from 'react-router-dom'
+import LoaderComp from '../Loader/index'
+
+const Cookies = require('js-cookie')
 
 const Login = () => {
-  const history = useHistory();
-  const [details, setDetails] = useState({ username: "", password: "" });
-  const [msg, setMsg] = useState({ error: false, msg: "" });
-  const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory()
+  const [details, setDetails] = useState({username: '', password: ''})
+  const [msg, setMsg] = useState({error: false, msg: ''})
+  const [isLoading, setIsLoading] = useState(false)
 
   const detailsHandler = (value, field) => {
     switch (field) {
-      case "name":
-        setDetails((prev) => ({ ...prev, username: value }));
-        break;
-      case "pswd":
-        setDetails((prev) => ({ ...prev, password: value }));
-        break;
+      case 'name':
+        setDetails(prev => ({...prev, username: value}))
+        break
+      case 'pswd':
+        setDetails(prev => ({...prev, password: value}))
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const submitHandler = async e => {
+    e.preventDefault()
+    setIsLoading(true)
     const options = {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(details),
-    };
-    const response = await fetch("https://apis.ccbp.in/login", options);
-    const data = await response.json();
-    if (data.jwt_token) {
-      setMsg((prev) => ({ ...prev, error: false, msg: "" }));
-      history.push("/home");
-    } else {
-      setMsg((prev) => ({ ...prev, error: true, msg: data.error_msg }));
     }
-    setIsLoading(false);
-  };
+    const response = await fetch('https://apis.ccbp.in/login', options)
+    const data = await response.json()
+    if (data.jwt_token) {
+      Cookies.set('jwt_token', data.jwt_token, {expires: 1, path: '/'})
+      setMsg(prev => ({...prev, error: false, msg: ''}))
+      history.push('/')
+    } else {
+      setMsg(prev => ({...prev, error: true, msg: data.error_msg}))
+    }
+    setIsLoading(false)
+  }
 
   return (
     <div className="login__div">
@@ -60,7 +63,7 @@ const Login = () => {
             id="userName"
             className="input"
             placeholder="User Name"
-            onChange={(e) => detailsHandler(e.target.value, "name")}
+            onChange={e => detailsHandler(e.target.value, 'name')}
             value={details.username}
           />
         </div>
@@ -73,7 +76,7 @@ const Login = () => {
             id="password"
             className="input"
             placeholder="Password"
-            onChange={(e) => detailsHandler(e.target.value, "pswd")}
+            onChange={e => detailsHandler(e.target.value, 'pswd')}
           />
         </div>
         <button type="submit" className="btn__login">
@@ -85,7 +88,7 @@ const Login = () => {
 
       {isLoading && <LoaderComp />}
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

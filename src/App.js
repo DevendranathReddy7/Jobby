@@ -1,5 +1,4 @@
 import './App.css'
-
 import {Switch, Route, Redirect} from 'react-router-dom'
 
 import Login from './components/Login/index'
@@ -12,6 +11,7 @@ const Cookies = require('js-cookie')
 
 const App = () => {
   const token = Cookies.get('jwt_token')
+
   return (
     <div className="main__div">
       <Switch>

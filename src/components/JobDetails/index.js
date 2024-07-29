@@ -14,6 +14,12 @@ const JobDetails = ({location}) => {
   const [isRetryClicked, setIsRetry] = useState(false)
 
   useEffect(() => {
+    if (!Cookies.get('jwt_token')) {
+      history.replace(`/login`)
+    }
+  }, [])
+
+  useEffect(() => {
     setIsLoading(true)
     const getJobs = async () => {
       const response = await fetch(`https://apis.ccbp.in${id}`, {
@@ -34,6 +40,10 @@ const JobDetails = ({location}) => {
     }
     getJobs()
   }, [id, isRetryClicked])
+
+  const retryHandler = () => {
+    setIsRetry(true)
+  }
 
   return (
     <div>
@@ -76,7 +86,7 @@ const JobDetails = ({location}) => {
           />
           <h1>Oops! Something Went Wrong</h1>
           <p>We cannot seem to find the page you are looking for</p>
-          <button onClick={setIsRetry(true)}>Retry</button>
+          <button onClick={retryHandler}>Retry</button>
         </div>
       )}
       {isLoading && <LoaderComp />}

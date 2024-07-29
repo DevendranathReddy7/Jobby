@@ -1,5 +1,5 @@
 import './index.css'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 import LoaderComp from '../Loader/index'
 
@@ -14,6 +14,11 @@ const Login = () => {
   const [msg, setMsg] = useState({error: false, msg: ''})
   const [isLoading, setIsLoading] = useState(false)
 
+  useEffect(() => {
+    if (Cookies.get('jwt_token')) {
+      history.replace('/home')
+    }
+  }, [])
   const detailsHandler = (value, field) => {
     switch (field) {
       case 'name':
@@ -39,7 +44,7 @@ const Login = () => {
     if (data.jwt_token) {
       Cookies.set('jwt_token', data.jwt_token, {expires: 1, path: '/'})
       setMsg(prev => ({...prev, error: false, msg: ''}))
-      history.push('/home')
+      history.replace('/home')
     } else {
       setMsg(prev => ({...prev, error: true, msg: data.error_msg}))
     }

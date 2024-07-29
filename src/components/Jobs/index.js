@@ -55,9 +55,18 @@ const Jobs = () => {
     search: '',
   })
   const [respStatus, setRespStatus] = useState(false)
+  const [profileResp, setProfileResp] = useState(false)
   const [isRetryClicked, setIsRetry] = useState(false)
   const [profileDetails, setProfileDetails] = useState()
   const [jobs, setJobs] = useState([])
+
+  useEffect(() => {
+    if (Cookies.get('jwt_token')) {
+      history.replace('/jobs')
+    } else {
+      history.replace('/login')
+    }
+  }, [])
 
   useEffect(() => {
     const getJobs = async () => {
@@ -79,7 +88,6 @@ const Jobs = () => {
         setJobs(data.jobs)
       } else {
         setRespStatus(true)
-        setRespStatus(false)
       }
     }
     getJobs()
@@ -93,12 +101,18 @@ const Jobs = () => {
           Authorization: `Bearer ${Cookies.get('jwt_token')}`,
         },
       })
-      const data = await response.json()
-      setProfileDetails(data.profile_details)
+
+      if (response.ok) {
+        setProfileResp(false)
+        const data = await response.json()
+        setProfileDetails(data.profile_details)
+      } else {
+        setProfileResp(true)
+      }
     }
     getProfile()
     setIsLoading(false)
-  }, [])
+  }, [isRetryClicked])
 
   const jobHandler = id => {
     history.replace(`/jobs/${id}`)
@@ -122,6 +136,10 @@ const Jobs = () => {
 
   const searchHandle = value => {
     setSearchValue(value)
+  }
+
+  const retryHandler = () => {
+    setIsRetry(true)
   }
   return (
     <div>
@@ -195,13 +213,28 @@ const Jobs = () => {
               placeholder="Find Jobs"
               onChange={e => searchHandle(e.target.value)}
             />
-            <button
-              data-testid="searchButton"
-              onClick={() => jobSearchHandler(searchValue, 'search')}
-            >
-              Search
-            </button>
           </div>
+          <button
+            data-testid="searchButton"
+            onClick={() => jobSearchHandler(searchValue, 'search')}
+          >
+            Search
+          </button>
+
+          {(respStatus || profileResp) && (
+            <div className="jobs__list__div">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+                alt="failure view"
+                className="failuerView"
+              />
+              <h1>Oops! Something Went Wrong</h1>
+              <p>We cannot seem to find the page you are looking for</p>
+              <button onClick={retryHandler} className="logout">
+                Retry
+              </button>
+            </div>
+          )}
 
           {!isLoading && jobs.length > 0 && (
             <ul className="jobs__list__div">
@@ -217,26 +250,15 @@ const Jobs = () => {
             </ul>
           )}
 
-          {!isLoading && jobs.length === 0 && (
+          {!isLoading && jobs.length === 0 && !respStatus && (
             <div className="jobs__list__div">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
                 alt="no jobs"
+                className="failuerView"
               />
               <h1>No Jobs Found</h1>
               <p>We could not find any jobs. Try other filters</p>
-            </div>
-          )}
-
-          {respStatus && (
-            <div className="jobs__list__div">
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-                alt="failure view"
-              />
-              <h1>Oops! Something Went Wrong</h1>
-              <p>We cannot seem to find the page you are looking for</p>
-              <button onClick={setIsRetry(true)}>Retry</button>
             </div>
           )}
 

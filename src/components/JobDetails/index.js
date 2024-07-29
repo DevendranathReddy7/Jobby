@@ -1,5 +1,7 @@
 import './index.css'
 import {useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
+
 import NavBar from '../NavBar/index'
 import PrintJob from '../PrintJobs'
 import LoaderComp from '../Loader'
@@ -8,6 +10,7 @@ const Cookies = require('js-cookie')
 
 const JobDetails = ({location}) => {
   const id = location.pathname
+  const history = useHistory()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
   const [job, setJob] = useState({})

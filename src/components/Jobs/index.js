@@ -106,12 +106,13 @@ const Jobs = () => {
         setProfileResp(false)
         const data = await response.json()
         setProfileDetails(data.profile_details)
+        setIsLoading(false)
       } else {
         setProfileResp(true)
+        setIsLoading(false)
       }
     }
     getProfile()
-    setIsLoading(false)
   }, [isRetryClicked])
 
   const jobHandler = id => {
@@ -148,7 +149,7 @@ const Jobs = () => {
       </ul>
       <div className="jobs__div">
         <div className="sideBar__div">
-          {profileDetails ? (
+          {profileDetails && (
             <div className="profile__div">
               <img
                 src={profileDetails.profile_image_url}
@@ -158,8 +159,16 @@ const Jobs = () => {
               <h1 className="name">{profileDetails.name}</h1>
               <p className="role">{profileDetails.short_bio}</p>
             </div>
-          ) : (
-            <div>Loading...</div>
+          )}
+
+          {profileResp && (
+            <div className="profile__div">
+              <p>Oops! Something Went Wrong</p>
+              <p>We cannot seem to find the page you are looking for</p>
+              <button onClick={retryHandler} className="logout">
+                Retry
+              </button>
+            </div>
           )}
 
           <ul className="job__type__div">
@@ -217,11 +226,12 @@ const Jobs = () => {
           <button
             data-testid="searchButton"
             onClick={() => jobSearchHandler(searchValue, 'search')}
+            className="logout"
           >
             Search
           </button>
 
-          {(respStatus || profileResp) && (
+          {respStatus && (
             <div className="jobs__list__div">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/failure-img.png"

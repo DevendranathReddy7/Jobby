@@ -1,5 +1,5 @@
-import './index.css'
-import Loader from 'react-loader-spinner'
+import "./index.css";
+import Loader from "react-loader-spinner";
 
 const LoaderComp = () => (
   <center className="spinner">
@@ -7,6 +7,6 @@ const LoaderComp = () => (
       <Loader type="Puff" color="#fbbf24" height="50px" />
     </div>
   </center>
-)
+);
 
-export default LoaderComp
+export default LoaderComp;

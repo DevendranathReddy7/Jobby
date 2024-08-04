@@ -37,11 +37,17 @@
   display: flex;
 }
 
+.innerLoc__div span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .loc,
 .eType,
 .ctc {
   align-self: center;
   margin-right: 10px;
+  margin-left: 5px;
 }
 
 .visit {
@@ -53,6 +59,10 @@
   align-self: center;
   color: wheat;
   padding-right: 10px;
+}
+
+.visit_icon{
+  align-self: center;
 }
 /* Skills */
 

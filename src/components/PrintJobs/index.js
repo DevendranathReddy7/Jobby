@@ -1,4 +1,9 @@
-import './index.css'
+import "./index.css";
+import { CiLocationOn } from "react-icons/ci";
+import {
+  HiOutlineBriefcase,
+  HiMiniArrowTopRightOnSquare,
+} from "react-icons/hi2";
 
 const PrintJob = ({
   job,
@@ -8,15 +13,20 @@ const PrintJob = ({
   similarJobs,
   altValue,
 }) => {
-  const getLocation = jobLocation => {
-    const {location, employment_type: employmentType} = jobLocation
+  const getLocation = (jobLocation) => {
+    const { location, employment_type: employmentType } = jobLocation;
     return (
       <div className="innerLoc__div">
-        <p className="loc">{location}</p>
-        <p className="eType">{employmentType}</p>
+        <span>
+          <CiLocationOn />
+          <p className="loc">{location}</p>
+        </span>
+        <span>
+          <HiOutlineBriefcase /> <p className="eType">{employmentType}</p>
+        </span>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="jobs__container">
@@ -55,7 +65,11 @@ const PrintJob = ({
               target="_blank"
               rel="noreferrer"
             >
-              Visit
+              Visit{" "}
+              <span className="visit_icon">
+                {" "}
+                <HiMiniArrowTopRightOnSquare />
+              </span>
             </a>
           )}
         </div>
@@ -66,7 +80,7 @@ const PrintJob = ({
         <div>
           <h1>Skills</h1>
           <ul className="skills__container">
-            {skills.map(skill => (
+            {skills.map((skill) => (
               <li className="skill__li" key={skill.name}>
                 <img
                   src={skill.image_url}
@@ -99,7 +113,7 @@ const PrintJob = ({
         <div className="location__container">{getLocation(job)}</div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PrintJob
+export default PrintJob;
